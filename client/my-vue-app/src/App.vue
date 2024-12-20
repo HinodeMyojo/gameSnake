@@ -1,4 +1,9 @@
 <template>
+  <div style="display: flex; gap: 10px;">
+    <p>Длина первой змеи = {{ snake_1_lenght }}</p>
+    <p>Длина второй змеи = {{ snake_2_lenght }}</p>
+    <p>Длина третьей змеи = {{ snake_3_lenght }}</p>
+  </div>
   <div ref="threeCanvas" style="width: 100vh; height: 100vh;"></div>
 </template>
 
@@ -9,6 +14,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import data from './example_response.json'
 
 const threeCanvas = ref<HTMLDivElement | null>(null);
+
+var snake_1_lenght = ref(0);
+var snake_2_lenght = ref(0);
+var snake_3_lenght = ref(0);
 
 onMounted(() => {
   // === Создание сцены и основных компонентов ===
@@ -72,7 +81,6 @@ onMounted(() => {
 
 // Функция добавления объектов в сцену
 const addObjects = (scene: THREE.Scene) => {
-
   const orangeColors = [];
   const blueColors = [];
   const greenColors = [];
@@ -96,10 +104,20 @@ const addObjects = (scene: THREE.Scene) => {
 
 
   // Заполняем greenColors из snakes (направления)
+  var counter = 0;
   data.snakes.forEach(snake => {
     snake.geometry.forEach(item => {
       greenColors.push(item); // Добавляем элемент в greenColors
     });
+    counter += 1;
+    if (counter == 1) {
+      snake_1_lenght.value = snake.geometry.length;
+    } else if (counter == 2) {
+      snake_2_lenght.value = snake.geometry.length;
+    } else if (counter == 3) {
+      snake_3_lenght.value = snake.geometry.length;
+    }
+
   });
 
   // Заполняем redColors из enemies (геометрии)
@@ -142,18 +160,19 @@ const addObjects = (scene: THREE.Scene) => {
     scene.add(cube);
   });
 
-  // // Создание материала для квадрата (красный цвет)
-  // const material = new THREE.MeshBasicMaterial({ color: 0xff1000 });
 
-  // // Создание меша (геометрия + материал)
-  // const redCube = new THREE.Mesh(geometry, material);
-  // const redCube1 = new THREE.Mesh(geometry, material);
+  // // Создание материала я квадрата (красный цвет)
+  // const material = new TEE.MeshBasicMaterial({ color: 0xff1000 });
 
-  // // Установка позиции квадрата
-  // redCube.position.set(0, 0, 0);
-  // redCube1.position.set(1, 0, 0);
+  // // Создание меша (геомрия + материал)
+  // const redCube = new THE.Mesh(geometry, material);
+  // const redCube1 = new TEE.Mesh(geometry, material);
 
-  // // Добавление квадрата в сцену
+  // // Установка позиции кдрата
+  // redCube.position.set(00, 0);
+  // redCube1.position.set( 0, 0);
+
+  // // Добавление квадрата сцену
   // scene.add(redCube);
   // scene.add(redCube1);
 };
