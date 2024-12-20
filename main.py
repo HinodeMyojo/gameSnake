@@ -70,6 +70,11 @@ def draw_map(screen, state):
         x, y, _ = fence
         pygame.draw.rect(screen, COLOR_FENCES, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
 
+    for enemies in state.get('enemies', []):
+        for segment in enemies['geometry']:
+            x, y, _ = segment
+            pygame.draw.rect(screen, (255, 255, 255), (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+
     pygame.display.flip()
 
 
