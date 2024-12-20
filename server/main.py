@@ -57,16 +57,16 @@ headers = {
 #             draw_cube(segment, CELL_SIZE, COLOR_SNAKE)
 
 # Функция для рисования карты
-def draw_map(state):
-    for food in state.get('food', []):
-        draw_cube(food['c'], CELL_SIZE, COLOR_FOOD)
+# def draw_map(state):
+#     for food in state.get('food', []):
+#         draw_cube(food['c'], CELL_SIZE, COLOR_FOOD)
 
-    for fence in state.get('fences', []):
-        draw_cube(fence, CELL_SIZE, COLOR_FENCES)
+#     for fence in state.get('fences', []):
+#         draw_cube(fence, CELL_SIZE, COLOR_FENCES)
 
-    for enemies in state.get('enemies', []):
-        for segment in enemies['geometry']:
-            draw_cube(segment, CELL_SIZE, (1, 1, 1))
+#     for enemies in state.get('enemies', []):
+#         for segment in enemies['geometry']:
+#             draw_cube(segment, CELL_SIZE, (1, 1, 1))
 
 def move(snake_id, direction):
     data = {
@@ -108,8 +108,6 @@ def main():
     for snake in active_snakes:
         snake_head = snake['geometry'][0]
         food = state['food']
-
-
 
         if food:
             
