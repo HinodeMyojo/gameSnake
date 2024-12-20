@@ -77,7 +77,6 @@ def move(snake_id, direction):
             }
         ]
     }
-
     response = requests.post(f"{server_url}/player/move", headers=headers, json=data)
     return response.json()
 
@@ -93,8 +92,10 @@ def get_direction(head, target):
 
 def get_game_state():
     """Получить состояние карты."""
-    response = requests.post(url, headers=headers, json=data)
-    return response.json()
+    #response = requests.post(url, headers=headers, json=data)
+    f = open("example_response copy.json", "r")
+    response = f.read()
+    return json.loads(response)
 
 def main():
     running = True
@@ -102,8 +103,6 @@ def main():
     state = get_game_state()
 
     active_snakes = [snake for snake in state['snakes'] if snake['geometry']]
-    
-    print (active_snakes)
     
     for snake in active_snakes:
         snake_head = snake['geometry'][0]
@@ -116,15 +115,14 @@ def main():
 
             target_c = target['c']
 
-            fences = state['fences']
+            fences = []
+            for fence in state['fences']:
+                fences.append((fence[0], fence[1], fence[2]))
 
+            direction = ph.find_path((snake_head[0], snake_head[1], snake_head[2]), (target_c[0], target_c[1], target_c[2]), fences)
             enemies = state['enemies']
             enemies_fences = []
 
-            
-            direction = get_direction(snake_head, target_c)
-
-        
             move(snake['id'], direction)
 
 if __name__ == "__main__":
