@@ -47,7 +47,9 @@ def find_path(position, target, fences):
                 path.append(current)
                 current = came_from[current]
             path.append(position)
-            return path[::-1]  # Return reversed path
+            result = path[::-1]
+            result = result[0]
+            return (result[0] - position[0], result[1] - position[1], result[2] - position[2])  # Return reversed path
 
         visited.add(current)
 
