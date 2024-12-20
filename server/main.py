@@ -44,11 +44,6 @@ headers = {
 #     print(snake1)
 #     print(snake2)
 
-# def get_game_state():
-#     """Получить состояние карты."""
-#     response = requests.post(url, headers=headers, json=data)
-#     return response.json()
-
 # def draw_cube(position, size, color):
 #     glColor3fv(color)
 #     glPushMatrix()
@@ -95,6 +90,11 @@ def get_direction(head, target):
 
     if head[2] != target[2]: 
         return [0, 0, 1] if head[2] < target[2] else [0, 0, -1]
+
+def get_game_state():
+    """Получить состояние карты."""
+    response = requests.post(url, headers=headers, json=data)
+    return response.json()
 
 def main():
     running = True
