@@ -12,12 +12,24 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import data from './example_response.json'
+import axios from 'axios';
 
 const threeCanvas = ref<HTMLDivElement | null>(null);
 
 var snake_1_lenght = ref(0);
 var snake_2_lenght = ref(0);
 var snake_3_lenght = ref(0);
+
+
+const token = '452cc499-268d-4d8f-9948-fcaa0aba839d';
+const serverUrl = 'https://games-test.datsteam.dev/play/snake3d';
+const api = '/player/move';
+const dataRequest = {
+  snakes: [
+
+  ]
+}
+const url = `${serverUrl}${api}`;
 
 onMounted(() => {
   // === Создание сцены и основных компонентов ===
@@ -79,12 +91,25 @@ onMounted(() => {
   });
 });
 
+const Request = async () => {
+  const response = await axios.post(url, dataRequest, {
+    headers: {
+      'X-Auth-Token': `${token}`,
+      'Content-Type': 'application/json',
+    }
+  });
+
+  return response;
+}
+
 // Функция добавления объектов в сцену
-const addObjects = (scene: THREE.Scene) => {
+const addObjects = async (scene: THREE.Scene) => {
   const orangeColors = [];
   const blueColors = [];
   const greenColors = [];
   const redColors = [];
+
+  // const data = await Request();
 
   data.food.forEach(item => {
     orangeColors.push(item.c);
@@ -160,21 +185,6 @@ const addObjects = (scene: THREE.Scene) => {
     scene.add(cube);
   });
 
-
-  // // Создание материала я квадрата (красный цвет)
-  // const material = new TEE.MeshBasicMaterial({ color: 0xff1000 });
-
-  // // Создание меша (геомрия + материал)
-  // const redCube = new THE.Mesh(geometry, material);
-  // const redCube1 = new TEE.Mesh(geometry, material);
-
-  // // Установка позиции кдрата
-  // redCube.position.set(00, 0);
-  // redCube1.position.set( 0, 0);
-
-  // // Добавление квадрата сцену
-  // scene.add(redCube);
-  // scene.add(redCube1);
 };
 </script>
 
