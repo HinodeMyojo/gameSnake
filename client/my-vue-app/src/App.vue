@@ -104,7 +104,9 @@ const addObjects = (scene: THREE.Scene) => {
 
   // Заполняем redColors из enemies (геометрии)
   data.enemies.forEach(enemy => {
-    redColors.push(enemy.geometry[0]);
+    enemy.geometry.forEach(item => {
+      redColors.push(item); // Добавляем все элементы из geometry в redColors
+    });
   });
 
   // Создание геометрии квадрата
