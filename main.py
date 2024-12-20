@@ -22,8 +22,8 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-CELL_SIZE = 20
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+CELL_SIZE = 5
+SCREEN_WIDTH, SCREEN_HEIGHT = 1000, 1000
 FPS = 10
 
 # Цвета
