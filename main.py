@@ -22,8 +22,8 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-CELL_SIZE = 5
-SCREEN_WIDTH, SCREEN_HEIGHT = 1000, 1000
+CELL_SIZE = 3
+SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 1000
 FPS = 10
 
 # Цвета
@@ -51,8 +51,14 @@ def init():
 def get_game_state():
     """Получить состояние карты."""
     response = requests.post(url, headers=headers, json=data)
-    print(response.json())
     return response.json()
+
+def draw_snake(screen, state):
+    for snake in state.get('snakes', []):
+        for segment in snake['geometry']:
+            x, y, _ = segment
+            pygame.draw.rect(screen, COLOR_SNAKE, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+
 
 def draw_map(screen, state):
     screen.fill(COLOR_BG)
@@ -60,11 +66,6 @@ def draw_map(screen, state):
     for food in state.get('food', []):
         x, y, _ = food['c']
         pygame.draw.rect(screen, COLOR_FOOD, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
-
-    for snake in state.get('snakes', []):
-        for segment in snake['geometry']:
-            x, y, _ = segment
-            pygame.draw.rect(screen, COLOR_SNAKE, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
 
     for fence in state.get('fences', []):
         x, y, _ = fence
@@ -77,6 +78,9 @@ def draw_map(screen, state):
 
     pygame.display.flip()
 
+
+# def draw_status(screen, state):
+#     screen.blit((0, 0, 0))
 
 def move(snake_id, direction):
     data = {
@@ -101,7 +105,6 @@ def get_direction(head, target):
     if head[2] != target[2]: 
         return [0, 0, 1] if head[2] < target[2] else [0, 0, -1]
 
-
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -117,26 +120,40 @@ def main():
 
         state = get_game_state()
         
-        print(state)
+        # print(state)
 
-        snake = state['snakes'][0]
-        snake_head = snake['geometry'][0]
-        food = state['food']
-
-        if food:
-            target = min(food, key=lambda f: abs(snake_head[0] - f['c'][0]) +
-                                            abs(snake_head[1] - f['c'][1]) + abs(snake_head[2] - f['c'][2]))
-
-            target_c = target['c']
-
-            direction = get_direction(snake_head, target_c)                                         
-
-            move(snake['id'], direction)
+        active_snakes = [snake for snake in state['snakes'] if snake['geometry']]
         
+        print (active_snakes)
 
+        if not active_snakes:
             draw_map(screen, state)
+            # draw_status(screen, state)
+        else:
+            for snake in active_snakes:
+                snake_head = snake['geometry'][0]
+                food = state['food']
 
-            clock.tick(FPS)
+                if food:
+                    
+                    target = min(food, key=lambda f: abs(snake_head[0] - f['c'][0]) +
+                                                   abs(snake_head[1] - f['c'][1]) + abs(snake_head[2] - f['c'][2]))
+
+                    target_c = target['c']
+
+                    
+                    direction = get_direction(snake_head, target_c)
+
+                
+                    move(snake['id'], direction)
+
+                
+                draw_map(screen, state)
+                draw_snake(screen, state)
+                
+
+        
+        clock.tick(FPS)
 
     pygame.quit()
     # init()
