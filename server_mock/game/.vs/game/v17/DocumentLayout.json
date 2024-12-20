@@ -1,0 +1,134 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Dev\\game\\server_mock\\game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|c:\\dev\\game\\server_mock\\game\\game\\data.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|solutionrelative:game\\data.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|c:\\dev\\game\\server_mock\\game\\game\\models\\responsesnakemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|solutionrelative:game\\models\\responsesnakemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|c:\\dev\\game\\server_mock\\game\\game\\models\\snakerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|solutionrelative:game\\models\\snakerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|c:\\dev\\game\\server_mock\\game\\game\\models\\requestsnakemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|solutionrelative:game\\models\\requestsnakemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|c:\\dev\\game\\server_mock\\game\\game\\controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|solutionrelative:game\\controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|c:\\dev\\game\\server_mock\\game\\game\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DC1C417-D9D8-46FE-8211-C04525F986E5}|game\\game.csproj|solutionrelative:game\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Data.cs",
+              "DocumentMoniker": "C:\\Dev\\game\\server_mock\\game\\game\\Data.cs",
+              "RelativeDocumentMoniker": "game\\Data.cs",
+              "ToolTip": "C:\\Dev\\game\\server_mock\\game\\game\\Data.cs",
+              "RelativeToolTip": "game\\Data.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T22:33:52.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ResponseSnakeModel.cs",
+              "DocumentMoniker": "C:\\Dev\\game\\server_mock\\game\\game\\Models\\ResponseSnakeModel.cs",
+              "RelativeDocumentMoniker": "game\\Models\\ResponseSnakeModel.cs",
+              "ToolTip": "C:\\Dev\\game\\server_mock\\game\\game\\Models\\ResponseSnakeModel.cs",
+              "RelativeToolTip": "game\\Models\\ResponseSnakeModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T22:30:56.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RequestSnakeModel.cs",
+              "DocumentMoniker": "C:\\Dev\\game\\server_mock\\game\\game\\Models\\RequestSnakeModel.cs",
+              "RelativeDocumentMoniker": "game\\Models\\RequestSnakeModel.cs",
+              "ToolTip": "C:\\Dev\\game\\server_mock\\game\\game\\Models\\RequestSnakeModel.cs",
+              "RelativeToolTip": "game\\Models\\RequestSnakeModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAIAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T22:29:38.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SnakeRequest.cs",
+              "DocumentMoniker": "C:\\Dev\\game\\server_mock\\game\\game\\Models\\SnakeRequest.cs",
+              "RelativeDocumentMoniker": "game\\Models\\SnakeRequest.cs",
+              "ToolTip": "C:\\Dev\\game\\server_mock\\game\\game\\Models\\SnakeRequest.cs",
+              "RelativeToolTip": "game\\Models\\SnakeRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAIAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T22:28:52.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Controller.cs",
+              "DocumentMoniker": "C:\\Dev\\game\\server_mock\\game\\game\\Controller.cs",
+              "RelativeDocumentMoniker": "game\\Controller.cs",
+              "ToolTip": "C:\\Dev\\game\\server_mock\\game\\game\\Controller.cs",
+              "RelativeToolTip": "game\\Controller.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T22:27:32.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Dev\\game\\server_mock\\game\\game\\Program.cs",
+              "RelativeDocumentMoniker": "game\\Program.cs",
+              "ToolTip": "C:\\Dev\\game\\server_mock\\game\\game\\Program.cs",
+              "RelativeToolTip": "game\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T22:27:21.589Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
