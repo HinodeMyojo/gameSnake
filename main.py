@@ -86,6 +86,17 @@ def move(snake_id, direction):
     response = requests.post(f"{server_url}/player/move", headers=headers, json=data)
     return response.json()
 
+def get_direction(head, target):
+    if head[0] != target[0]: 
+        return [1, 0, 0] if head[0] < target[0] else [-1, 0, 0]
+
+    if head[1] != target[1]:
+        return [0, 1, 0] if head[1] < target[1] else [0, -1, 0]
+
+    if head[2] != target[2]: 
+        return [0, 0, 1] if head[2] < target[2] else [0, 0, -1]
+
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -109,15 +120,11 @@ def main():
 
         if food:
             target = min(food, key=lambda f: abs(snake_head[0] - f['c'][0]) +
-                                            abs(snake_head[1] - f['c'][1]))
+                                            abs(snake_head[1] - f['c'][1]) + abs(snake_head[2] - f['c'][2]))
 
             target_c = target['c']
 
-            direction = [
-                    (1 if target_c[0] > snake_head[0] else -1) if target_c[0] != snake_head[0] else 0,
-                    (1 if target_c[1] > snake_head[1] else -1) if target_c[1] != snake_head[1] else 0,
-                    (1 if target_c[2] > snake_head[2] else -1) if target_c[2] != snake_head[2] else 0
-                ]                                              
+            direction = get_direction(snake_head, target_c)                                         
 
             move(snake['id'], direction)
         
