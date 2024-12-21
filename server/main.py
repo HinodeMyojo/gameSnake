@@ -21,15 +21,26 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-def move(snake_id, direction):
+# snakes = [{id, directions}, {id, directions} ...]
+def prepare_data(snakes):
+    # Преобразуем массив snakes в нужный формат
     data = {
         "snakes": [
             {
-                "id": snake_id,
-                "direction": [direction[0], direction[1], direction[2]]
+                "id": snake["id"],
+                "direction": snake["directions"] 
             }
+            for snake in snakes
         ]
     }
+    return data
+
+
+def move(snakes):
+
+    data = prepare_data(snakes)
+
+    print(data)
     response = requests.post(f"{server_url}/player/move", headers=headers, json=data)
     return response.json()
 
@@ -72,6 +83,8 @@ def main():
 
         active_snakes = [snake for snake in state['snakes']]
 
+        moveList = []
+
         for snake in active_snakes:
 
             if not snake['geometry']:
@@ -103,8 +116,13 @@ def main():
                 fences.append((ourBody[0], ourBody[1], ourBody[2]))
             direction = ph.find_path((snake_head[0], snake_head[1], snake_head[2]), (target_c[0], target_c[1], target_c[2]), fences)
 
-            move(snake['id'], direction)
+            moveList.append({"id": snake['id'], "directions": direction})
+
+            
             print(snake['geometry'])
+        
+        move(moveList)
+
         print("tick remains: " + str(state['tickRemainMs']))
         print("#####################")
         time.sleep(state['tickRemainMs'] / 1000)
