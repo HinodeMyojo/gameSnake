@@ -164,7 +164,7 @@ const addObjects = async (scene: THREE.Scene) => {
   // === Материалы для объектов ===
   const orangeMaterial = new THREE.MeshBasicMaterial({ color: 0xffa500 });
   const greenMaterial = new THREE.MeshBasicMaterial({ color: 0x8B00FF });
-  const blueMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+  const blueMaterial = new THREE.MeshBasicMaterial({ color: 0xA8E4A0 });
   const redMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000 });
 
   const createOrUpdateCube = (key: string, position: number[], material: THREE.Material) => {

@@ -35,7 +35,7 @@ def find_path(position, target, fences):
 
     # Keep track of visited nodes
     visited = set()
-    i = 0;
+    i = 0
     while open_set:
         i += 1
         if i > 5000:
