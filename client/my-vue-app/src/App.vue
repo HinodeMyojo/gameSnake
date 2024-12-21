@@ -91,7 +91,7 @@ onMounted(() => {
   //   );
   //   addObjects(scene);
   // }, 1000);
-  setInterval(() => addObjects(scene), 1000);
+  setInterval(() => addObjects(scene), 500);
 
   // === Очистка при уничтожении ===
   onBeforeUnmount(() => {
@@ -163,7 +163,7 @@ const addObjects = async (scene: THREE.Scene) => {
 
   // === Материалы для объектов ===
   const orangeMaterial = new THREE.MeshBasicMaterial({ color: 0xffa500 });
-  const greenMaterial = new THREE.MeshBasicMaterial({ color: 0x00FF00 });
+  const greenMaterial = new THREE.MeshBasicMaterial({ color: 0x8B00FF });
   const blueMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
   const redMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000 });
 
