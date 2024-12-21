@@ -33,6 +33,19 @@ def move(snake_id, direction):
     response = requests.post(f"{server_url}/player/move", headers=headers, json=data)
     return response.json()
 
+def move_test(snake, direction):
+    last_position = snake[0]
+    snake[0][0] += direction[0]
+    snake[0][1] += direction[1]
+    snake[0][2] += direction[2]
+
+    for snake_item in snake[1:]:
+        tmp = snake_item
+        snake_item[0] = last_position[0]
+        snake_item[1] = last_position[1]
+        snake_item[2] = last_position[2]
+        last_position = tmp
+
 def get_direction(head, target):
     if head[0] != target[0]: 
         return [1, 0, 0] if head[0] < target[0] else [-1, 0, 0]
@@ -55,31 +68,40 @@ def main():
     while True:
 
         state = get_game_state()
-
         active_snakes = [snake for snake in state['snakes'] if snake['geometry']]
-        
+
         for snake in active_snakes:
             snake_head = snake['geometry'][0]
+
             food = state['food']
 
-            if food:
-                
-                target = min(food, key=lambda f: abs(snake_head[0] - f['c'][0]) +
-                                                abs(snake_head[1] - f['c'][1]) + abs(snake_head[2] - f['c'][2]))
+            if not food:
+                print("No food")
+                continue
+            
+            target = min(food, key=lambda f: abs(snake_head[0] - f['c'][0]) +
+                                            abs(snake_head[1] - f['c'][1]) + abs(snake_head[2] - f['c'][2]))
 
-                target_c = target['c']
+            target_c = target['c']
 
-                fences = []
-                for fence in state['fences']:
-                    fences.append((fence[0], fence[1], fence[2]))
+            fences = []
+            for fence in state['fences']:
+                fences.append((fence[0], fence[1], fence[2]))
 
-                direction = ph.find_path((snake_head[0], snake_head[1], snake_head[2]), (target_c[0], target_c[1], target_c[2]), fences)
-                enemies = state['enemies']
-                enemies_fences = []
+            for enemy in state['enemies']:
+                for enemy_body in enemy['geometry']:
+                    fences.append((enemy_body[0], enemy_body[1], enemy_body[2]))
+            
+            for ourBody in snake['geometry'][1:]:
+                fences.append((ourBody[0], ourBody[1], ourBody[2]))
 
-                move(snake['id'], direction)
+            direction = ph.find_path((snake_head[0], snake_head[1], snake_head[2]), (target_c[0], target_c[1], target_c[2]), fences)
 
-        time.sleep(1)
+            move(snake['id'], direction)
+            print(snake['geometry'])
+        print("tick remains: " + str(state['tickRemainMs']))
+        time.sleep(state['tickRemainMs'] / 1000)
+
 
 if __name__ == "__main__":
     main()

@@ -48,8 +48,13 @@ def find_path(position, target, fences):
                 current = came_from[current]
             path.append(position)
             result = path[::-1]
+            if len(result) == 1:
+                print("We reach end!")
+                return (0, -1, 0)
             result = result[1]
-            return (result[0] - position[0], result[1] - position[1], result[2] - position[2])  # Return reversed path
+            direction = (result[0] - position[0], result[1] - position[1], result[2] - position[2]);
+            print(direction)
+            return direction  # Return reversed path
 
         visited.add(current)
 
