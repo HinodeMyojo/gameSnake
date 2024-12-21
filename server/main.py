@@ -58,16 +58,19 @@ def get_direction(head, target):
 
 def get_game_state():
     """Получить состояние карты."""
-    #response = requests.post(url, headers=headers, json=data)
-    f = open("example_response copy.json", "r")
-    response = f.read()
-    return json.loads(response)
+    response = requests.post(url, headers=headers, json=data)
+    # f = open("example_response copy.json", "r")
+    # response = f.read()
+    # return json.loads(response)
+    return response.json()
 
 def main():
 
     while True:
 
         state = get_game_state()
+        print(state)
+
         active_snakes = [snake for snake in state['snakes'] if snake['geometry']]
 
         for snake in active_snakes:

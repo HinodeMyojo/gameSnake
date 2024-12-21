@@ -11,7 +11,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import data from './example_response.json'
+// import data from './example_response.json'
 import axios from 'axios';
 
 const threeCanvas = ref<HTMLDivElement | null>(null);
@@ -83,6 +83,15 @@ onMounted(() => {
   };
   window.addEventListener('resize', handleResize);
 
+
+  setInterval(() => {
+    // Очищаем сцену перед добавлением новых объектов, кроме света и вспомогательных элементов
+    // scene.children = scene.children.filter(
+    //   obj => obj.type === 'AmbientLight' || obj.type === 'AxesHelper'
+    // );
+    addObjects(scene);
+  }, 1000);
+
   // === Очистка при уничтожении ===
   onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize);
@@ -98,8 +107,9 @@ const Request = async () => {
       'Content-Type': 'application/json',
     }
   });
-
+  console.log(response);
   return response;
+
 }
 
 // Функция добавления объектов в сцену
@@ -109,7 +119,7 @@ const addObjects = async (scene: THREE.Scene) => {
   const greenColors = [];
   const redColors = [];
 
-  // const data = await Request();
+  const data = (await Request()).data;
 
   data.food.forEach(item => {
     orangeColors.push(item.c);
@@ -185,7 +195,12 @@ const addObjects = async (scene: THREE.Scene) => {
     scene.add(cube);
   });
 
+
+
 };
+
+
+
 </script>
 
 <style>
