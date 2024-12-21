@@ -84,13 +84,14 @@ onMounted(() => {
   window.addEventListener('resize', handleResize);
 
 
-  setInterval(() => {
-    // Очищаем сцену перед добавлением новых объектов, кроме света и вспомогательных элементов
-    // scene.children = scene.children.filter(
-    //   obj => obj.type === 'AmbientLight' || obj.type === 'AxesHelper'
-    // );
-    addObjects(scene);
-  }, 1000);
+  // setInterval(() => {
+  //   // Очищаем сцену перед добавлением новых объектов, кроме света и вспомогательных элементов
+  //   scene.children = scene.children.filter(
+  //     obj => obj.type === 'AmbientLight' || obj.type === 'AxesHelper'
+  //   );
+  //   addObjects(scene);
+  // }, 1000);
+  setInterval(() => addObjects(scene), 1000);
 
   // === Очистка при уничтожении ===
   onBeforeUnmount(() => {
@@ -113,6 +114,8 @@ const Request = async () => {
 }
 
 // Функция добавления объектов в сцену
+const objectMap: Record<string, THREE.Mesh> = {}; // Карта объектов для управления добавлением/удалением
+
 const addObjects = async (scene: THREE.Scene) => {
   const orangeColors = [];
   const blueColors = [];
@@ -121,6 +124,7 @@ const addObjects = async (scene: THREE.Scene) => {
 
   const data = (await Request()).data;
 
+  // === Сбор данных ===
   data.food.forEach(item => {
     orangeColors.push(item.c);
   });
@@ -132,72 +136,78 @@ const addObjects = async (scene: THREE.Scene) => {
     }
   });
 
-  // Заполняем blueColors из fences
   data.fences.forEach(fence => {
     blueColors.push(fence);
   });
 
-
-  // Заполняем greenColors из snakes (направления)
-  var counter = 0;
+  let counter = 0;
   data.snakes.forEach(snake => {
     snake.geometry.forEach(item => {
-      greenColors.push(item); // Добавляем элемент в greenColors
+      greenColors.push(item);
     });
     counter += 1;
-    if (counter == 1) {
+    if (counter === 1) {
       snake_1_lenght.value = snake.geometry.length;
-    } else if (counter == 2) {
+    } else if (counter === 2) {
       snake_2_lenght.value = snake.geometry.length;
-    } else if (counter == 3) {
+    } else if (counter === 3) {
       snake_3_lenght.value = snake.geometry.length;
     }
-
   });
 
-  // Заполняем redColors из enemies (геометрии)
   data.enemies.forEach(enemy => {
     enemy.geometry.forEach(item => {
-      redColors.push(item); // Добавляем все элементы из geometry в redColors
+      redColors.push(item);
     });
   });
 
-  // Создание геометрии квадрата
-  const squareSize = 1; // Размер квадрата
-  const geometry = new THREE.BoxGeometry(squareSize, squareSize, squareSize);
-
+  // === Материалы для объектов ===
   const orangeMaterial = new THREE.MeshBasicMaterial({ color: 0xffa500 });
   const greenMaterial = new THREE.MeshBasicMaterial({ color: 0x00FF00 });
   const blueMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
   const redMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000 });
 
-  orangeColors.forEach(element => {
-    const cube = new THREE.Mesh(geometry, orangeMaterial);
-    cube.position.set(element[0], element[1], element[2]);
-    scene.add(cube);
-  });
+  const createOrUpdateCube = (key: string, position: number[], material: THREE.Material) => {
+    if (objectMap[key]) {
+      // Если объект существует, обновляем его позицию
+      objectMap[key].position.set(position[0], position[1], position[2]);
+    } else {
+      // Если объекта нет, создаём новый
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(position[0], position[1], position[2]);
+      scene.add(cube);
+      objectMap[key] = cube;
+    }
+  };
 
-  greenColors.forEach(element => {
-    const cube = new THREE.Mesh(geometry, greenMaterial);
-    cube.position.set(element[0], element[1], element[2]);
-    scene.add(cube);
-  });
+  // === Создание или обновление объектов ===
+  orangeColors.forEach((pos, index) => createOrUpdateCube(`orange-${index}`, pos, orangeMaterial));
+  greenColors.forEach((pos, index) => createOrUpdateCube(`green-${index}`, pos, greenMaterial));
+  blueColors.forEach((pos, index) => createOrUpdateCube(`blue-${index}`, pos, blueMaterial));
+  redColors.forEach((pos, index) => createOrUpdateCube(`red-${index}`, pos, redMaterial));
 
-  blueColors.forEach(element => {
-    const cube = new THREE.Mesh(geometry, blueMaterial);
-    cube.position.set(element[0], element[1], element[2]);
-    scene.add(cube);
-  });
-
-  redColors.forEach(element => {
-    const cube = new THREE.Mesh(geometry, redMaterial);
-    cube.position.set(element[0], element[1], element[2]);
-    scene.add(cube);
-  });
-
-
-
+  // === Удаление старых объектов ===
+  const allKeys = [
+    ...orangeColors.map((_, index) => `orange-${index}`),
+    ...greenColors.map((_, index) => `green-${index}`),
+    ...blueColors.map((_, index) => `blue-${index}`),
+    ...redColors.map((_, index) => `red-${index}`),
+  ];
+  for (const key in objectMap) {
+    if (!allKeys.includes(key)) {
+      // Удаляем объект из сцены и освобождаем память
+      scene.remove(objectMap[key]);
+      objectMap[key].geometry.dispose();
+      objectMap[key].material.dispose();
+      delete objectMap[key];
+    }
+  }
 };
+
+// === Обновление сцены каждую секунду ===
+
+
 
 
 
