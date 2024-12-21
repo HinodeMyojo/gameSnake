@@ -26,7 +26,7 @@ def move(snake_id, direction):
         "snakes": [
             {
                 "id": snake_id,
-                "direction": direction
+                "direction": [direction[0], direction[1], direction[2]]
             }
         ]
     }
@@ -69,11 +69,15 @@ def main():
     while True:
 
         state = get_game_state()
-        print(state)
 
-        active_snakes = [snake for snake in state['snakes'] if snake['geometry']]
+        active_snakes = [snake for snake in state['snakes']]
 
         for snake in active_snakes:
+
+            if not snake['geometry']:
+                print("snake dead")
+                continue
+
             snake_head = snake['geometry'][0]
 
             food = state['food']
@@ -97,12 +101,12 @@ def main():
             
             for ourBody in snake['geometry'][1:]:
                 fences.append((ourBody[0], ourBody[1], ourBody[2]))
-
             direction = ph.find_path((snake_head[0], snake_head[1], snake_head[2]), (target_c[0], target_c[1], target_c[2]), fences)
 
             move(snake['id'], direction)
             print(snake['geometry'])
         print("tick remains: " + str(state['tickRemainMs']))
+        print("#####################")
         time.sleep(state['tickRemainMs'] / 1000)
 
 

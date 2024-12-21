@@ -35,8 +35,12 @@ def find_path(position, target, fences):
 
     # Keep track of visited nodes
     visited = set()
-
+    i = 0;
     while open_set:
+        i += 1
+        if i > 5000:
+            print("break")
+            return (0, -1, 0)
         # Get the node with the lowest f_score
         _, current = heapq.heappop(open_set)
 
@@ -65,7 +69,6 @@ def find_path(position, target, fences):
             # Skip obstacles and already visited nodes
             if neighbor in fences or neighbor in visited:
                 continue
-
             # Tentative g_score for this neighbor
             tentative_g_score = g_score[current] + 1
 
